@@ -12,8 +12,9 @@ import Header from './components/header/header.component';
 
 import SignInAndSignUpPage from './pages/sign-in-and-sign-out/sign-in-and-sign-out.component';
 
-import {auth} from './firebase/firebase.utils';
+import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 
+import { onSnapshot } from 'firebase/firestore';
 
 class App extends React.Component {
   constructor(){
@@ -26,12 +27,26 @@ class App extends React.Component {
 
   unsubscribeFromAuth = null;
 
-  componentDidMount(){
-    this.unsubscribeFromAuth=auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user});
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userDocRef = await createUserProfileDocument(userAuth);
 
-      console.log(user);
-    })
+        if (userDocRef) {
+          onSnapshot(userDocRef, (snapShot) => {
+            this.setState({
+              currentUser: {
+                id: snapShot.id,
+                ...snapShot.data(),
+              },
+            });
+            console.log(this.state);
+          });
+        }
+      } else {
+        this.setState({ currentUser: null });
+      }
+    });
   }
 
   componentWillUnmount(){
