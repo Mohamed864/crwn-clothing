@@ -7,11 +7,12 @@ const middlewares = [logger];
 
 const store = configureStore({
   reducer: rootReducer, // Use "reducer" key for the root reducer
-  /*middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(...middlewares), */ // Add custom middlewares like logger
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: true,
+      immutableCheck: false, // Disable immutability check
+      serializableCheck: false, // Disable serializability check
+    }).concat(...middlewares), // Add custom middlewares like logger
 });
 
 export default store;
-
-/*middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(...middlewares), */ // Add custom middlewares like logger

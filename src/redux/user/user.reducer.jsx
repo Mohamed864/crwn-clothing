@@ -9,19 +9,20 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
-      console.log("state ahoooaa : ", state);
+      /*console.log("Current User Payload:", action.payload);
+      console.log("State before update:", state);*/
       return {
         ...state,
         currentUser: action.payload,
       };
-
     case SIGN_OUT_USER:
+      //console.log("State before sign-out:", state);
       return {
         ...state,
         currentUser: null,
       };
     default:
-      console.log("state ahoooaa : ", state);
+      //console.log("State in default case:", state);
       return state;
   }
 };
