@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Correctly import Link
+import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/4.3 crown.svg.svg";
 import { auth } from "../../firebase/firebase.utils";
+import { connect } from "react-redux";
 import "./header.styles.scss";
 
 const Header = ({ currentUser }) => (
@@ -16,6 +17,7 @@ const Header = ({ currentUser }) => (
       <Link className="option" to="/contact">
         CONTACT
       </Link>
+      {console.log(currentUser)}
       {currentUser ? (
         <div className="option" onClick={() => auth.signOut()}>
           SIGN OUT
@@ -23,10 +25,18 @@ const Header = ({ currentUser }) => (
       ) : (
         <Link className="option" to="/signin">
           SIGN IN
+          {console.log(currentUser)}
         </Link>
       )}
     </div>
   </div>
 );
 
-export default Header;
+const mapStateToProps = (state) => {
+  console.log("Current User from Redux state:", state.user.currentUser); // Add a log here
+  return {
+    currentUser: state.user.currentUser,
+  };
+};
+
+export default connect(mapStateToProps)(Header);

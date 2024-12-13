@@ -59,6 +59,7 @@ provider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
+    console.log("Signed in user:", result.user);
     return result;
   } catch (error) {
     console.error("Error signing in with Google", error);
