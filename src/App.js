@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.action";
 import { onSnapshot } from "firebase/firestore";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
@@ -50,7 +55,16 @@ class App extends React.Component {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/shop" element={<ShopPage />} />
-            <Route path="/signin" element={<SignInAndSignUpPage />} />
+            <Route
+              path="/signin"
+              element={
+                this.props.currentUser ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <SignInAndSignUpPage />
+                )
+              }
+            />
           </Routes>
         </Router>
       </div>
@@ -65,11 +79,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = (state) => {
-  console.log("Redux state:", state); // Log the entire Redux state to track currentUser
-  return {
-    currentUser: state.user.currentUser,
-  };
-};
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
