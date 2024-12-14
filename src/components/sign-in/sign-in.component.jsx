@@ -1,6 +1,6 @@
 import React from "react";
 import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.commponent"; // Fixed the typo here
+import CustomButton from "../custom-button/custom-button.component"; // Fixed the typo here
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { connect } from "react-redux";
