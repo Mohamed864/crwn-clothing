@@ -16,6 +16,7 @@ import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-out/sign-in-and-sign-out.component";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { createStructuredSelector } from "reselect";
+import CheckoutPage from "./pages/checkout/checkout.component";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -67,6 +68,7 @@ class App extends React.Component {
                 )
               }
             />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </Router>
       </div>
