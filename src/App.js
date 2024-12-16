@@ -51,13 +51,14 @@ class App extends React.Component {
   }
 
   render() {
+    //important to add shop/* to acc new param
     return (
       <div>
         <Router>
           <Header />
           <Routes>
             <Route exact path="/" element={<HomePage />} />
-            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/shop/*" element={<ShopPage />} />
             <Route
               path="/signin"
               element={
