@@ -37,10 +37,12 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 // ConnectedCollectionPage component that passes the collectionId to CollectionPage
+// connet-collection-pag is the component of the bellow
+/*
 const ConnectedCollectionPage = (props) => {
   const { collectionId } = useParams(); // Getting collectionId from route params
   console.log("Collection ID from URL:", collectionId); // Debugging
   return <CollectionPage {...props} collectionId={collectionId} />; // Passing collectionId to CollectionPage
-};
+};*/
 
-export default connect(mapStateToProps)(ConnectedCollectionPage);
+export default connect(mapStateToProps)(CollectionPage);
