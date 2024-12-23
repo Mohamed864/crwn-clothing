@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { collection, getFirestore, writeBatch } from "firebase/firestore";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { docs, doc, getDoc, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -65,6 +65,27 @@ export const addCollectionAndDocuments = async (
   } catch (error) {
     console.error("Error adding documents in batch:", error);
   }
+};
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    const routeName = title ? encodeURI(title.toLowerCase()) : "";
+    return {
+      routeName: routeName,
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  return transformedCollection.reduce((accumulator, collection) => {
+    // Ensure title exists and is a string before using toLowerCase()
+    if (collection.title && typeof collection.title === "string") {
+      accumulator[collection.title.toLowerCase()] = collection;
+    }
+    return accumulator;
+  }, {});
 };
 
 // Initialize Firebase
