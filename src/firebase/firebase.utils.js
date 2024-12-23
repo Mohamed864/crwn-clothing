@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { collection, getFirestore, writeBatch } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -40,6 +40,31 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+//for collections
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(firestore, collectionKey); // Reference to the collection
+  console.log(collectionRef);
+
+  const batch = writeBatch(firestore);
+
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = doc(collectionRef); // Generate a new document reference
+    console.log(newDocRef);
+
+    batch.set(newDocRef, obj); // Add the object to the batch
+  });
+
+  try {
+    await batch.commit(); // Commit the batch operation
+    console.log("Batch write completed successfully.");
+  } catch (error) {
+    console.error("Error adding documents in batch:", error);
+  }
 };
 
 // Initialize Firebase
