@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { selectCollection } from "../../redux/shop/shop.selector";
 import "./collection.styles.scss";
 import CollectionItem from "../../components/collection-item/collection-item.component";

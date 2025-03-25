@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { collection, getFirestore, writeBatch } from "firebase/firestore";
-import { docs, doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -91,9 +91,6 @@ export const convertCollectionsSnapshotToMap = (collections) => {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-if (process.env.NODE_ENV === "production") {
-  const analytics = getAnalytics(app);
-}
 // Initialize Firebase services
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);

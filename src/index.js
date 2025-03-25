@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import { PersistGate } from "redux-persist/integration/react";
 //y3ny 3ayz y2ol eny ana bst5dm e; persist data dedux m3a el react
-import { BrowserRouter } from "react-router-dom";
+
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 
